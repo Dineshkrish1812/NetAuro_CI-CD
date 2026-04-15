@@ -22,6 +22,10 @@ jobs:
         sudo apt update
         sudo apt install ansible -y
 
+    - name: Install Python dependencies
+      run: |
+          pip install paramiko ansible-pylibssh
+
     - name: Run Ansible Playbook
       run: |
         ansible-playbook playbooks/vlan.yml
