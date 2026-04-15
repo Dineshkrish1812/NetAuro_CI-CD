@@ -1,0 +1,27 @@
+name: Network Automation CI/CD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    env:
+      ANSIBLE_USER: ${{ secrets.ANSIBLE_USER }}
+      ANSIBLE_PASS: ${{ secrets.ANSIBLE_PASS }}
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v3
+
+    - name: Install Ansible
+      run: |
+        sudo apt update
+        sudo apt install ansible -y
+
+    - name: Run Ansible Playbook
+      run: |
+        ansible-playbook playbooks/vlan.yml

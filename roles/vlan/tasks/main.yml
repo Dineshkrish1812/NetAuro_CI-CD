@@ -1,0 +1,19 @@
+- name: Backup current config
+  ios_config:
+    backup: yes
+
+- name: Configure VLAN 10
+  ios_config:
+    lines:
+      - vlan 10
+      - name SALES
+
+- name: Verify VLAN
+  ios_command:
+    commands:
+      - show vlan brief
+  register: vlan_output
+
+- name: Display VLAN Output
+  debug:
+    var: vlan_output.stdout
